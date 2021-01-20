@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<div class="jumbotron">
+   <h1 class="display-4">Rewards Tracker</h1>
+</div>
+
+<div class="row">
+
+   {% if request.user.is_authenticated %}
+
+   <div class="card m-1" style="width: 18rem;">
+      <div class="card-body">
+         <h5 class="card-title">Employees</h5>
+         <p class="card-text">Manage Employees</p>
+         <a href="{% url 'rewardsapp:employee_list' %}" class="btn btn-primary">Employees</a>
+      </div>
+   </div>
+
+
+   <div class="card m-1" style="width: 18rem;">
+      <div class="card-body">
+         <h5 class="card-title">Rewards</h5>
+         <p class="card-text">Manage Reward Definitions</p>
+         <a href="{% url 'rewardsapp:reward_list' %}" class="btn btn-primary">Rewards</a>
+      </div>
+   </div>
+
+   {% endif %}
+
+   {% if request.user.is_superuser %}
+
+   <div class="card m-1" style="width: 18rem;">
+    <div class="card-body">
+       <h5 class="card-title">User Administration</h5>
+       <p class="card-text">Manage application users</p>
+       <a href="{% url 'user_list' %}" class="btn btn-primary">User Administration</a>
+    </div>
+   </div>
+
+   {% endif %}
+
+</div>
+
+{% endblock content %}

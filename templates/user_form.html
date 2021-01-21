@@ -6,16 +6,20 @@
 
 {% block content %}
 
-<h1>User</h1>
+<div class="container">
 
-<form method="post" class="form col-lg-4">
+  <h1>User</h1>
 
-  {% csrf_token %}
+  <form method="post" class="form col-lg-4">
 
-  {{ form|crispy }}
+    {% csrf_token %}
 
-  <button class="btn btn-primary" type="submit">Save</button>
+    {{ form|crispy }}
 
-</form>
+    <button class="btn btn-primary" type="submit">Save</button>
+
+  </form>
+
+</div>
 
 {% endblock content %}

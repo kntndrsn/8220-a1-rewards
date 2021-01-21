@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Employee Form{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Employee</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.number|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.firstname|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.lastname|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.active|as_crispy_field }}
+            </div>
+        </div>
+
+        <button type="submit" class="save btn btn-primary">Save</button>
+
+        {% if employee %}
+
+        <a href="{% url 'rewardsapp:employee_delete' employee_id=employee.pk %}" class="btn btn-danger">Delete</a>
+
+        {% endif %}
+
+    </form>
+
+</div>
+
+{% endblock content %}

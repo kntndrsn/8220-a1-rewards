@@ -111,7 +111,7 @@ def reward_edit(request, reward_id):
 
            reward = form.save(commit=False)
 
-           reward_id.save()
+           reward.save()
            
            return redirect('rewardsapp:reward_list')
         
@@ -119,7 +119,7 @@ def reward_edit(request, reward_id):
     
        form = RewardForm(instance=reward)
 
-       return render(request, 'reward_form.html', {'form': form})
+       return render(request, 'reward_form.html', {'form': form, 'reward': reward})
 
 @login_required
 def reward_delete(request, reward_id):
@@ -139,12 +139,19 @@ def employee_reward_list(request, employee_id):
 
     employee_rewards = Employee_Reward.objects.filter(employee_id=employee_id)
 
-    return render(request, 'employee_reward_list.html', {'employee_rewards': employee_rewards, 'employee': employee})
+    employeeRewardsIds = []
+
+    for employee_reward in employee_rewards:
+        employeeRewardsIds.append(employee_reward.reward_id)    
+
+    rewards = Reward.objects.filter(pk__in = employeeRewardsIds)
+
+    return render(request, 'employee_reward_list.html', {'employee': employee, 'rewards': rewards})
 
 @login_required
-def employee_reward_delete(request,  employee_reward_id, employee_id):
+def employee_reward_delete(request,  employee_id, reward_id):
 
-    employeeReward = get_object_or_404(Employee_Reward, pk=employee_reward_id)
+    employeeReward = Employee_Reward.objects.filter(employee_id=employee_id, reward_id=reward_id)
 
     employeeReward.delete()
 
@@ -177,4 +184,4 @@ def employee_reward_new(request, employee_id):
 
         form = EmployeeRewardForm(initial={"employee":employee, "rewards":rewards})
 
-        return render(request, 'employee_rewards_form.html', {'form': form})
+        return render(request, 'employee_reward_form.html', {'form': form})

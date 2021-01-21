@@ -4,45 +4,54 @@
 
 {% block content %}
 
-<div class="jumbotron">
-   <h1 class="display-4">Rewards Tracker</h1>
-</div>
+<section class="jumbotron text-center">
+   <div class="container">
+      <h1 class="jumbotron-heading">Rewards Tracker</h1>
+      <p class="lead text-muted">Enterprise employee rewards tracking system</p>
 
-<div class="row">
+   </div>
+</section>
 
-   {% if request.user.is_authenticated %}
+<div class="container">
+   <div class="row">
 
-   <div class="card m-1" style="width: 18rem;">
-      <div class="card-body">
-         <h5 class="card-title">Employees</h5>
-         <p class="card-text">Manage Employees</p>
-         <a href="{% url 'rewardsapp:employee_list' %}" class="btn btn-primary">Employees</a>
+      {% if request.user.is_authenticated %}
+      <div class=" col-md-4">
+
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title">Employees</h5>
+               <p class="card-text">Manage Employees</p>
+               <a href="{% url 'rewardsapp:employee_list' %}" class="btn btn-primary">Employees</a>
+            </div>
+         </div>
       </div>
-   </div>
 
-
-   <div class="card m-1" style="width: 18rem;">
-      <div class="card-body">
-         <h5 class="card-title">Rewards</h5>
-         <p class="card-text">Manage Reward Definitions</p>
-         <a href="{% url 'rewardsapp:reward_list' %}" class="btn btn-primary">Rewards</a>
+      <div class=" col-md-4">
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title">Rewards</h5>
+               <p class="card-text">Manage Reward Definitions</p>
+               <a href="{% url 'rewardsapp:reward_list' %}" class="btn btn-primary">Rewards</a>
+            </div>
+         </div>
       </div>
+
+      {% endif %}
+
+      {% if request.user.is_superuser %}
+      <div class=" col-md-4">
+         <div class="card">
+            <div class="card-body">
+               <h5 class="card-title">User Administration</h5>
+               <p class="card-text">Manage application users</p>
+               <a href="{% url 'user_list' %}" class="btn btn-primary">User Administration</a>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+
    </div>
-
-   {% endif %}
-
-   {% if request.user.is_superuser %}
-
-   <div class="card m-1" style="width: 18rem;">
-    <div class="card-body">
-       <h5 class="card-title">User Administration</h5>
-       <p class="card-text">Manage application users</p>
-       <a href="{% url 'user_list' %}" class="btn btn-primary">User Administration</a>
-    </div>
-   </div>
-
-   {% endif %}
-
 </div>
 
 {% endblock content %}

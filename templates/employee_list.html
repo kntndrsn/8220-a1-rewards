@@ -1,15 +1,14 @@
-{#<p><a href="{% url 'client_edit' client_pk=client.pk visit_id=visit.visit_id%}">Edit</a> | <a href="{% url 'client_delete' client.pk %}">Delete</a></p>#}
-
 {% extends 'base.html' %}
 
-{% block title %}Client List{% endblock title %}
+{% block title %}Employee List{% endblock title %}
 
 {% block content %}
+
 <div class="container">
 
-    <h2>Client Information</h2>
+    <h2>Employee List</h2>
 
-    <a href="{% url 'rewardsapp:client_new' %}" class="btn btn-primary">Add Client</a>
+    <a href="{% url 'rewardsapp:employee_new' %}" class="btn btn-primary">Add Employee</a>
 
     <br />
     <br />
@@ -19,20 +18,15 @@
             <thead>
                 <tr class="bg-info">
                     <th>Actions</th>
-                    <th>Name</th>
-                    <th>Birth Date</th>
-                    <th>Gender</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip Code</th>
-                    <th>Email</th>
-
+                    <th>Employee Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Active</th>
                 </tr>
             </thead>
 
             <tbody>
-            {% for client in clients %}
+                {% for employee in employees %}
                 <tr>
                     <td>
                         <a href="{% url 'rewardsapp:employee_edit' employee_id=employee.pk %}">Edit</a>
@@ -40,10 +34,13 @@
                         <a href="{% url 'rewardsapp:employee_reward_list' employee_id=employee.pk %}">Rewards</a>
                     </td>
 
-                    <td>{{ employee.firstname }}  {{ employee.lastname }}</td>
+                    <td>{{ employee.number }}</td>
+                    <td>{{ employee.firstname }}</td>
+                    <td>{{ employee.lastname }}</td>
+                    <td>{{ employee.active }}</td>
 
                 </tr>
-             {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
 
@@ -61,10 +58,10 @@
 
 <script>
 
-    $(function(){
+    $(function () {
 
         $("#tbl").DataTable({
-            "columnDefs":[
+            "columnDefs": [
                 {
                     "targets": [0], "searchable": false, "orderable": false
                 }

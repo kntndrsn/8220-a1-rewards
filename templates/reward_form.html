@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Reward Form{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Reward</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.name|as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.description|as_crispy_field }}
+            </div>
+        </div>
+
+        <button type="submit" class="save btn btn-primary">Save</button>
+
+        {% if reward %}
+
+        <a href="{% url 'rewardsapp:reward_delete' reward_id=reward.pk %}" class="btn btn-danger">Delete</a>
+
+        {% endif %}
+
+    </form>
+
+</div>
+
+{% endblock content %}

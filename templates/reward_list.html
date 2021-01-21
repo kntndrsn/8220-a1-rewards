@@ -1,51 +1,45 @@
 {% extends 'base.html' %}
 
-{% block title %}User List{% endblock title %}
+{% block title %}Reward List{% endblock title %}
 
 {% block content %}
 
 <div class="container">
-   
-    <h2>User Information</h2>
 
-    <a href="{% url 'user_new' %}" class="btn btn-primary">Add User</a>
+    <h2>Reward List</h2>
+
+    <a href="{% url 'rewardsapp:reward_new' %}" class="btn btn-primary">Add Reward</a>
 
     <br />
     <br />
-    
+
     <div>
         <table class="table table-striped table-bordered table-hover" id="tbl">
             <thead>
                 <tr class="bg-info">
                     <th>Actions</th>
-                    <th>User Name</th>
                     <th>Name</th>
-                    <th>Is Administrator</th>
+                    <th>Description</th>
                 </tr>
             </thead>
 
             <tbody>
-            {% for user in users %}
+                {% for reward in rewards %}
                 <tr>
                     <td>
-                        <a href="{% url 'user_edit' pk=user.pk %}">Edit</a>
-                        |
-                        <a href="{% url 'user_delete' pk=user.pk %}"
-                               onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                        <a href="{% url 'rewardsapp:reward_edit' reward_id=reward.pk %}">Edit</a>
                     </td>
 
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.first_name }} {{ user.last_name }}</td>
-                    <td>{{ user.is_superuser }}</td>
-                    
+                    <td>{{ reward.name }}</td>
+                    <td>{{ reward.description }}</td>
+
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
 
     </div>
 </div>
-
 {% endblock content %}
 
 {% block script %}
@@ -58,16 +52,16 @@
 
 <script>
 
-    $(function(){
+    $(function () {
 
         $("#tbl").DataTable({
-            "columnDefs":[
+            "columnDefs": [
                 {
                     "targets": [0], "searchable": false, "orderable": false
                 }
             ]
         });
-        
+
     });
 
 </script>
